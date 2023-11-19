@@ -10,3 +10,12 @@ spring:
       enabled: false # 서버 재시작시 배치 자동실행 방지
     jdbc:
       initialize-schema: always
+
+job-setting:
+  hello:
+    name: "helloJob"
+    enabled: true
+    cron: "30 * * * * ?"
+  dynamic:
+    name: "dynamicJob"
+    enabled: true
