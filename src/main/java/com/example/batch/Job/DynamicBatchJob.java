@@ -2,6 +2,7 @@ package com.example.batch.Job;
 
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -22,21 +23,15 @@ import java.util.Random;
 
 @Configuration
 @Data
+@RequiredArgsConstructor
 @Slf4j
 public class DynamicBatchJob implements BatchConfig{
 
     private String cronExpression;
+    @Value("${job-setting.dynamic.enabled}")
     private boolean isJobEnabled;
+    @Value("${job-setting.dynamic.name}")
     private String jobName;
-
-    public DynamicBatchJob(
-            @Value("${job-setting.dynamic.enabled}") boolean isJobEnabled,
-            @Value("${job-setting.dynamic.name}") String jobName
-    ){
-        this.cronExpression = getRandomCronExpression();
-        this.isJobEnabled = isJobEnabled;
-        this.jobName = jobName;
-    }
 
     private static final String[] cronExpressions = {
         // 동적 cron 변경을 위한 임시 cron 식 변수

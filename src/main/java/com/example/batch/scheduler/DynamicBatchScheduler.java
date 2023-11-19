@@ -15,6 +15,8 @@ public class DynamicBatchScheduler extends BatchScheduler {
                                  JobRegistry jobRegistry,
                                  DynamicBatchJob dynamicBatchJob) {
         super(jobLauncher, jobRegistry, dynamicBatchJob);
+        String cron = dynamicBatchJob.getRandomCronExpression();
+        dynamicBatchJob.setCronExpression(cron);
         if(dynamicBatchJob.isJobEnabled()){
             startScheduler();
         }
