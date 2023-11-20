@@ -18,9 +18,11 @@ public class UpdateScheduleService {
 
     @Scheduled(cron = "59 * * * * ?") // 59 초 마다 cron 업데이트 실행
     public void updateCronInDynamicBatch(){
-        log.info("run update schedule service");
-        String updatedCron = dynamicBatchJob.getRandomCronExpression();
-        log.info("updated cron: {}",updatedCron);
-        dynamicBatchScheduler.updateCronExpression(updatedCron);
+        if(dynamicBatchJob.isJobEnabled()){
+            log.info("run update schedule service");
+            String updatedCron = dynamicBatchJob.getRandomCronExpression();
+            log.info("updated cron: {}",updatedCron);
+            dynamicBatchScheduler.updateCronExpression(updatedCron);
+        }
     }
 }

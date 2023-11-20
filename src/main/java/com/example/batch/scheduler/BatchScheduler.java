@@ -60,11 +60,11 @@ public abstract class BatchScheduler {
 
     private Runnable runJob() {
         return () -> {
-            settingJob(batchConfig.getJobName());
+            launch(batchConfig.getJobName());
         };
     }
 
-    private void settingJob(String jobName){
+    private void launch(String jobName){
         String time = LocalDateTime.now().toString();
        try {
            Job job = jobRegistry.getJob(jobName);

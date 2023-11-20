@@ -1,7 +1,6 @@
 package com.example.batch.Job;
 
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -11,5 +10,4 @@ public interface BatchConfig {
     String getCronExpression();
     void setCronExpression(String cronExpression);
     Job createJob(JobRepository jobRepository, PlatformTransactionManager transactionManager);
-    Step executeStep(JobRepository jobRepository,  PlatformTransactionManager transactionManager);
 }

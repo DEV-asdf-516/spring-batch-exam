@@ -45,7 +45,8 @@ public class DynamicBatchJob implements BatchConfig{
 
     @Bean("dynamic")
     @Override
-    public Job createJob(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+    public Job createJob(JobRepository jobRepository,
+                         PlatformTransactionManager transactionManager) {
         Job job = new JobBuilder(getJobName(),jobRepository)
                        .incrementer(new RunIdIncrementer())
                        .start(executeStep(jobRepository,transactionManager))
@@ -53,8 +54,8 @@ public class DynamicBatchJob implements BatchConfig{
         return job;
     }
 
-    @Override
-    public Step executeStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+     private Step executeStep(JobRepository jobRepository,
+                              PlatformTransactionManager transactionManager) {
         Step step = new StepBuilder("dynamicStep",jobRepository)
                    .allowStartIfComplete(true)
                    .tasklet(dynamicTasklet(),transactionManager)

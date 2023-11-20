@@ -42,15 +42,14 @@ public class HelloBatchJob extends DefaultBatchConfiguration implements BatchCon
         return job;
     }
 
-    @Override
-    public Step executeStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+    private Step executeStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         Step step = new StepBuilder("helloStep",jobRepository)
                    .allowStartIfComplete(true)
                    .tasklet(helloTasklet(),transactionManager)
                    .build();
         return step;
     }
-    public Tasklet helloTasklet(){
+    private Tasklet helloTasklet(){
         return ((contribution, chunkContext) -> {
             log.info("***** hello batch! *****");
             return RepeatStatus.FINISHED;
